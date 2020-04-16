@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:zomato_api/domain/zomato_request/city.dart';
@@ -26,19 +27,51 @@ class ZomatoSearchBloc extends Bloc<ZomatoSearchEvent, ZomatoSearchState> {
     ZomatoSearchEvent event,
   ) async* {
     yield* event.map(searchCity: (e) async* {
-      yield state.copyWith(searching: true);
-      print(e.cityName);
-      Either<ZomatoRequestFailures, List<City>> cities =
-          await iZomatoClient.searchCity(cityName: e.cityName);
+      if (e.cityName.isEmpty) {
+        yield state.copyWith(
+          emptySearch: true,
+          cities: [],
+        );
+      } else {
+        Either<ZomatoRequestFailures, List<City>> cities =
+            await iZomatoClient.searchCity(
+          cityName: e.cityName,
+        );
 
-      yield cities.fold((ifLeft) {
-        
-      }, (ifRight) {
-
-        return state.copyWith(searching: false, cities: ifRight);
-      });
+        yield cities.fold((ifLeft) {
+          return ifLeft.when(serverError: () {
+            return state.copyWith(
+                serveError: true, badRequest: false, invalidApi: true);
+          }, badRequest404: () {
+            return state.copyWith(
+                serveError: false, badRequest: true, invalidApi: false);
+          }, invalidApiKey: () {
+            return state.copyWith(
+                serveError: false, badRequest: false, invalidApi: true);
+          });
+        }, (ifRight) {
+          return state.copyWith(
+            cities: ifRight,
+            emptySearch: false,
+          );
+        });
+      }
     }, searchRestaurent: (e) async* {
-      print(e);
+      var waiting = await iZomatoClient.searchRestaurents(city: e.city);
+      yield waiting.fold((ifLeft) {
+        return ifLeft.when(serverError: () {
+          return state.copyWith(
+              serveError: true, badRequest: false, invalidApi: true);
+        }, badRequest404: () {
+          return state.copyWith(
+              serveError: false, badRequest: true, invalidApi: false);
+        }, invalidApiKey: () {
+          return state.copyWith(
+              serveError: false, badRequest: false, invalidApi: true);
+        });
+      }, (ifRight) {
+        return state.copyWith(liRestaurents: ifRight);
+      });
     });
   }
 }

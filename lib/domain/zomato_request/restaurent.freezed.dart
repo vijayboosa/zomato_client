@@ -16,16 +16,16 @@ class _$RestaurentTearOff {
       {String id,
       String name,
       Map<String, dynamic> location,
-      String locationVerbose,
       String timings,
-      String userRating}) {
+      String userRating,
+      String imageUrl}) {
     return _Restaurent(
       id: id,
       name: name,
       location: location,
-      locationVerbose: locationVerbose,
       timings: timings,
       userRating: userRating,
+      imageUrl: imageUrl,
     );
   }
 }
@@ -37,9 +37,9 @@ mixin _$Restaurent {
   String get id;
   String get name;
   Map<String, dynamic> get location;
-  String get locationVerbose;
   String get timings;
   String get userRating;
+  String get imageUrl;
 
   $RestaurentCopyWith<Restaurent> get copyWith;
 }
@@ -52,9 +52,9 @@ abstract class $RestaurentCopyWith<$Res> {
       {String id,
       String name,
       Map<String, dynamic> location,
-      String locationVerbose,
       String timings,
-      String userRating});
+      String userRating,
+      String imageUrl});
 }
 
 class _$RestaurentCopyWithImpl<$Res> implements $RestaurentCopyWith<$Res> {
@@ -69,9 +69,9 @@ class _$RestaurentCopyWithImpl<$Res> implements $RestaurentCopyWith<$Res> {
     Object id = freezed,
     Object name = freezed,
     Object location = freezed,
-    Object locationVerbose = freezed,
     Object timings = freezed,
     Object userRating = freezed,
+    Object imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
@@ -79,12 +79,10 @@ class _$RestaurentCopyWithImpl<$Res> implements $RestaurentCopyWith<$Res> {
       location: location == freezed
           ? _value.location
           : location as Map<String, dynamic>,
-      locationVerbose: locationVerbose == freezed
-          ? _value.locationVerbose
-          : locationVerbose as String,
       timings: timings == freezed ? _value.timings : timings as String,
       userRating:
           userRating == freezed ? _value.userRating : userRating as String,
+      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
     ));
   }
 }
@@ -98,9 +96,9 @@ abstract class _$RestaurentCopyWith<$Res> implements $RestaurentCopyWith<$Res> {
       {String id,
       String name,
       Map<String, dynamic> location,
-      String locationVerbose,
       String timings,
-      String userRating});
+      String userRating,
+      String imageUrl});
 }
 
 class __$RestaurentCopyWithImpl<$Res> extends _$RestaurentCopyWithImpl<$Res>
@@ -117,9 +115,9 @@ class __$RestaurentCopyWithImpl<$Res> extends _$RestaurentCopyWithImpl<$Res>
     Object id = freezed,
     Object name = freezed,
     Object location = freezed,
-    Object locationVerbose = freezed,
     Object timings = freezed,
     Object userRating = freezed,
+    Object imageUrl = freezed,
   }) {
     return _then(_Restaurent(
       id: id == freezed ? _value.id : id as String,
@@ -127,12 +125,10 @@ class __$RestaurentCopyWithImpl<$Res> extends _$RestaurentCopyWithImpl<$Res>
       location: location == freezed
           ? _value.location
           : location as Map<String, dynamic>,
-      locationVerbose: locationVerbose == freezed
-          ? _value.locationVerbose
-          : locationVerbose as String,
       timings: timings == freezed ? _value.timings : timings as String,
       userRating:
           userRating == freezed ? _value.userRating : userRating as String,
+      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
     ));
   }
 }
@@ -142,9 +138,9 @@ class _$_Restaurent implements _Restaurent {
       {this.id,
       this.name,
       this.location,
-      this.locationVerbose,
       this.timings,
-      this.userRating});
+      this.userRating,
+      this.imageUrl});
 
   @override
   final String id;
@@ -153,15 +149,15 @@ class _$_Restaurent implements _Restaurent {
   @override
   final Map<String, dynamic> location;
   @override
-  final String locationVerbose;
-  @override
   final String timings;
   @override
   final String userRating;
+  @override
+  final String imageUrl;
 
   @override
   String toString() {
-    return 'Restaurent(id: $id, name: $name, location: $location, locationVerbose: $locationVerbose, timings: $timings, userRating: $userRating)';
+    return 'Restaurent(id: $id, name: $name, location: $location, timings: $timings, userRating: $userRating, imageUrl: $imageUrl)';
   }
 
   @override
@@ -175,15 +171,15 @@ class _$_Restaurent implements _Restaurent {
             (identical(other.location, location) ||
                 const DeepCollectionEquality()
                     .equals(other.location, location)) &&
-            (identical(other.locationVerbose, locationVerbose) ||
-                const DeepCollectionEquality()
-                    .equals(other.locationVerbose, locationVerbose)) &&
             (identical(other.timings, timings) ||
                 const DeepCollectionEquality()
                     .equals(other.timings, timings)) &&
             (identical(other.userRating, userRating) ||
                 const DeepCollectionEquality()
-                    .equals(other.userRating, userRating)));
+                    .equals(other.userRating, userRating)) &&
+            (identical(other.imageUrl, imageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.imageUrl, imageUrl)));
   }
 
   @override
@@ -192,9 +188,9 @@ class _$_Restaurent implements _Restaurent {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(location) ^
-      const DeepCollectionEquality().hash(locationVerbose) ^
       const DeepCollectionEquality().hash(timings) ^
-      const DeepCollectionEquality().hash(userRating);
+      const DeepCollectionEquality().hash(userRating) ^
+      const DeepCollectionEquality().hash(imageUrl);
 
   @override
   _$RestaurentCopyWith<_Restaurent> get copyWith =>
@@ -206,9 +202,9 @@ abstract class _Restaurent implements Restaurent {
       {String id,
       String name,
       Map<String, dynamic> location,
-      String locationVerbose,
       String timings,
-      String userRating}) = _$_Restaurent;
+      String userRating,
+      String imageUrl}) = _$_Restaurent;
 
   @override
   String get id;
@@ -217,11 +213,11 @@ abstract class _Restaurent implements Restaurent {
   @override
   Map<String, dynamic> get location;
   @override
-  String get locationVerbose;
-  @override
   String get timings;
   @override
   String get userRating;
+  @override
+  String get imageUrl;
   @override
   _$RestaurentCopyWith<_Restaurent> get copyWith;
 }

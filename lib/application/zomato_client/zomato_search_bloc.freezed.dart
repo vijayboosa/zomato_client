@@ -18,9 +18,9 @@ class _$ZomatoSearchEventTearOff {
     );
   }
 
-  RestaurentName searchRestaurent(String restaurentName) {
+  RestaurentName searchRestaurent({City city}) {
     return RestaurentName(
-      restaurentName,
+      city: city,
     );
   }
 }
@@ -32,12 +32,12 @@ mixin _$ZomatoSearchEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result searchCity(String cityName),
-    @required Result searchRestaurent(String restaurentName),
+    @required Result searchRestaurent(City city),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result searchCity(String cityName),
-    Result searchRestaurent(String restaurentName),
+    Result searchRestaurent(City city),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -94,15 +94,23 @@ class _$SerachCityCopyWithImpl<$Res>
   }
 }
 
-class _$SerachCity implements SerachCity {
+class _$SerachCity with DiagnosticableTreeMixin implements SerachCity {
   const _$SerachCity(this.cityName) : assert(cityName != null);
 
   @override
   final String cityName;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ZomatoSearchEvent.searchCity(cityName: $cityName)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ZomatoSearchEvent.searchCity'))
+      ..add(DiagnosticsProperty('cityName', cityName));
   }
 
   @override
@@ -126,7 +134,7 @@ class _$SerachCity implements SerachCity {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result searchCity(String cityName),
-    @required Result searchRestaurent(String restaurentName),
+    @required Result searchRestaurent(City city),
   }) {
     assert(searchCity != null);
     assert(searchRestaurent != null);
@@ -137,7 +145,7 @@ class _$SerachCity implements SerachCity {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result searchCity(String cityName),
-    Result searchRestaurent(String restaurentName),
+    Result searchRestaurent(City city),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -184,7 +192,9 @@ abstract class $RestaurentNameCopyWith<$Res> {
   factory $RestaurentNameCopyWith(
           RestaurentName value, $Res Function(RestaurentName) then) =
       _$RestaurentNameCopyWithImpl<$Res>;
-  $Res call({String restaurentName});
+  $Res call({City city});
+
+  $CityCopyWith<$Res> get city;
 }
 
 class _$RestaurentNameCopyWithImpl<$Res>
@@ -199,40 +209,54 @@ class _$RestaurentNameCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object restaurentName = freezed,
+    Object city = freezed,
   }) {
     return _then(RestaurentName(
-      restaurentName == freezed
-          ? _value.restaurentName
-          : restaurentName as String,
+      city: city == freezed ? _value.city : city as City,
     ));
+  }
+
+  @override
+  $CityCopyWith<$Res> get city {
+    if (_value.city == null) {
+      return null;
+    }
+    return $CityCopyWith<$Res>(_value.city, (value) {
+      return _then(_value.copyWith(city: value));
+    });
   }
 }
 
-class _$RestaurentName implements RestaurentName {
-  const _$RestaurentName(this.restaurentName) : assert(restaurentName != null);
+class _$RestaurentName with DiagnosticableTreeMixin implements RestaurentName {
+  const _$RestaurentName({this.city});
 
   @override
-  final String restaurentName;
+  final City city;
 
   @override
-  String toString() {
-    return 'ZomatoSearchEvent.searchRestaurent(restaurentName: $restaurentName)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ZomatoSearchEvent.searchRestaurent(city: $city)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ZomatoSearchEvent.searchRestaurent'))
+      ..add(DiagnosticsProperty('city', city));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is RestaurentName &&
-            (identical(other.restaurentName, restaurentName) ||
-                const DeepCollectionEquality()
-                    .equals(other.restaurentName, restaurentName)));
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(restaurentName);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(city);
 
   @override
   $RestaurentNameCopyWith<RestaurentName> get copyWith =>
@@ -242,23 +266,23 @@ class _$RestaurentName implements RestaurentName {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result searchCity(String cityName),
-    @required Result searchRestaurent(String restaurentName),
+    @required Result searchRestaurent(City city),
   }) {
     assert(searchCity != null);
     assert(searchRestaurent != null);
-    return searchRestaurent(restaurentName);
+    return searchRestaurent(city);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result searchCity(String cityName),
-    Result searchRestaurent(String restaurentName),
+    Result searchRestaurent(City city),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (searchRestaurent != null) {
-      return searchRestaurent(restaurentName);
+      return searchRestaurent(city);
     }
     return orElse();
   }
@@ -290,9 +314,9 @@ class _$RestaurentName implements RestaurentName {
 }
 
 abstract class RestaurentName implements ZomatoSearchEvent {
-  const factory RestaurentName(String restaurentName) = _$RestaurentName;
+  const factory RestaurentName({City city}) = _$RestaurentName;
 
-  String get restaurentName;
+  City get city;
   $RestaurentNameCopyWith<RestaurentName> get copyWith;
 }
 
@@ -305,14 +329,16 @@ class _$ZomatoSearchStateTearOff {
       @required bool serveError,
       @required bool invalidApi,
       @required bool badRequest,
-      @required bool searching}) {
+      @required bool emptySearch,
+      @required List<Restaurent> liRestaurents}) {
     return _ZomatoSearchState(
       message: message,
       cities: cities,
       serveError: serveError,
       invalidApi: invalidApi,
       badRequest: badRequest,
-      searching: searching,
+      emptySearch: emptySearch,
+      liRestaurents: liRestaurents,
     );
   }
 }
@@ -326,7 +352,8 @@ mixin _$ZomatoSearchState {
   bool get serveError;
   bool get invalidApi;
   bool get badRequest;
-  bool get searching;
+  bool get emptySearch;
+  List<Restaurent> get liRestaurents;
 
   $ZomatoSearchStateCopyWith<ZomatoSearchState> get copyWith;
 }
@@ -341,7 +368,8 @@ abstract class $ZomatoSearchStateCopyWith<$Res> {
       bool serveError,
       bool invalidApi,
       bool badRequest,
-      bool searching});
+      bool emptySearch,
+      List<Restaurent> liRestaurents});
 }
 
 class _$ZomatoSearchStateCopyWithImpl<$Res>
@@ -359,7 +387,8 @@ class _$ZomatoSearchStateCopyWithImpl<$Res>
     Object serveError = freezed,
     Object invalidApi = freezed,
     Object badRequest = freezed,
-    Object searching = freezed,
+    Object emptySearch = freezed,
+    Object liRestaurents = freezed,
   }) {
     return _then(_value.copyWith(
       message: message == freezed ? _value.message : message as String,
@@ -370,7 +399,11 @@ class _$ZomatoSearchStateCopyWithImpl<$Res>
           invalidApi == freezed ? _value.invalidApi : invalidApi as bool,
       badRequest:
           badRequest == freezed ? _value.badRequest : badRequest as bool,
-      searching: searching == freezed ? _value.searching : searching as bool,
+      emptySearch:
+          emptySearch == freezed ? _value.emptySearch : emptySearch as bool,
+      liRestaurents: liRestaurents == freezed
+          ? _value.liRestaurents
+          : liRestaurents as List<Restaurent>,
     ));
   }
 }
@@ -387,7 +420,8 @@ abstract class _$ZomatoSearchStateCopyWith<$Res>
       bool serveError,
       bool invalidApi,
       bool badRequest,
-      bool searching});
+      bool emptySearch,
+      List<Restaurent> liRestaurents});
 }
 
 class __$ZomatoSearchStateCopyWithImpl<$Res>
@@ -407,7 +441,8 @@ class __$ZomatoSearchStateCopyWithImpl<$Res>
     Object serveError = freezed,
     Object invalidApi = freezed,
     Object badRequest = freezed,
-    Object searching = freezed,
+    Object emptySearch = freezed,
+    Object liRestaurents = freezed,
   }) {
     return _then(_ZomatoSearchState(
       message: message == freezed ? _value.message : message as String,
@@ -418,25 +453,33 @@ class __$ZomatoSearchStateCopyWithImpl<$Res>
           invalidApi == freezed ? _value.invalidApi : invalidApi as bool,
       badRequest:
           badRequest == freezed ? _value.badRequest : badRequest as bool,
-      searching: searching == freezed ? _value.searching : searching as bool,
+      emptySearch:
+          emptySearch == freezed ? _value.emptySearch : emptySearch as bool,
+      liRestaurents: liRestaurents == freezed
+          ? _value.liRestaurents
+          : liRestaurents as List<Restaurent>,
     ));
   }
 }
 
-class _$_ZomatoSearchState implements _ZomatoSearchState {
+class _$_ZomatoSearchState
+    with DiagnosticableTreeMixin
+    implements _ZomatoSearchState {
   const _$_ZomatoSearchState(
       {@required this.message,
       @required this.cities,
       @required this.serveError,
       @required this.invalidApi,
       @required this.badRequest,
-      @required this.searching})
+      @required this.emptySearch,
+      @required this.liRestaurents})
       : assert(message != null),
         assert(cities != null),
         assert(serveError != null),
         assert(invalidApi != null),
         assert(badRequest != null),
-        assert(searching != null);
+        assert(emptySearch != null),
+        assert(liRestaurents != null);
 
   @override
   final String message;
@@ -449,11 +492,27 @@ class _$_ZomatoSearchState implements _ZomatoSearchState {
   @override
   final bool badRequest;
   @override
-  final bool searching;
+  final bool emptySearch;
+  @override
+  final List<Restaurent> liRestaurents;
 
   @override
-  String toString() {
-    return 'ZomatoSearchState(message: $message, cities: $cities, serveError: $serveError, invalidApi: $invalidApi, badRequest: $badRequest, searching: $searching)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ZomatoSearchState(message: $message, cities: $cities, serveError: $serveError, invalidApi: $invalidApi, badRequest: $badRequest, emptySearch: $emptySearch, liRestaurents: $liRestaurents)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ZomatoSearchState'))
+      ..add(DiagnosticsProperty('message', message))
+      ..add(DiagnosticsProperty('cities', cities))
+      ..add(DiagnosticsProperty('serveError', serveError))
+      ..add(DiagnosticsProperty('invalidApi', invalidApi))
+      ..add(DiagnosticsProperty('badRequest', badRequest))
+      ..add(DiagnosticsProperty('emptySearch', emptySearch))
+      ..add(DiagnosticsProperty('liRestaurents', liRestaurents));
   }
 
   @override
@@ -474,9 +533,12 @@ class _$_ZomatoSearchState implements _ZomatoSearchState {
             (identical(other.badRequest, badRequest) ||
                 const DeepCollectionEquality()
                     .equals(other.badRequest, badRequest)) &&
-            (identical(other.searching, searching) ||
+            (identical(other.emptySearch, emptySearch) ||
                 const DeepCollectionEquality()
-                    .equals(other.searching, searching)));
+                    .equals(other.emptySearch, emptySearch)) &&
+            (identical(other.liRestaurents, liRestaurents) ||
+                const DeepCollectionEquality()
+                    .equals(other.liRestaurents, liRestaurents)));
   }
 
   @override
@@ -487,7 +549,8 @@ class _$_ZomatoSearchState implements _ZomatoSearchState {
       const DeepCollectionEquality().hash(serveError) ^
       const DeepCollectionEquality().hash(invalidApi) ^
       const DeepCollectionEquality().hash(badRequest) ^
-      const DeepCollectionEquality().hash(searching);
+      const DeepCollectionEquality().hash(emptySearch) ^
+      const DeepCollectionEquality().hash(liRestaurents);
 
   @override
   _$ZomatoSearchStateCopyWith<_ZomatoSearchState> get copyWith =>
@@ -501,7 +564,8 @@ abstract class _ZomatoSearchState implements ZomatoSearchState {
       @required bool serveError,
       @required bool invalidApi,
       @required bool badRequest,
-      @required bool searching}) = _$_ZomatoSearchState;
+      @required bool emptySearch,
+      @required List<Restaurent> liRestaurents}) = _$_ZomatoSearchState;
 
   @override
   String get message;
@@ -514,7 +578,9 @@ abstract class _ZomatoSearchState implements ZomatoSearchState {
   @override
   bool get badRequest;
   @override
-  bool get searching;
+  bool get emptySearch;
+  @override
+  List<Restaurent> get liRestaurents;
   @override
   _$ZomatoSearchStateCopyWith<_ZomatoSearchState> get copyWith;
 }

@@ -8,7 +8,8 @@ abstract class ZomatoSearchState with _$ZomatoSearchState {
     @required bool serveError,
     @required bool invalidApi,
     @required bool badRequest,
-    @required bool searching,
+    @required bool emptySearch,
+    @required List<Restaurent> liRestaurents,
   }) = _ZomatoSearchState;
 
   factory ZomatoSearchState.initial() => ZomatoSearchState(
@@ -17,6 +18,7 @@ abstract class ZomatoSearchState with _$ZomatoSearchState {
       serveError: false,
       badRequest: false,
       invalidApi: false,
-      searching: false,
+      emptySearch: false,
+      liRestaurents: [],
       );
 }

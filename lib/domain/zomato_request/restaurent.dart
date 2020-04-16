@@ -8,8 +8,8 @@ abstract class Restaurent with _$Restaurent {
     String id,
     String name,
     Map<String, dynamic> location,
-    String locationVerbose,
     String timings,
     String userRating,
+    String imageUrl,
   }) = _Restaurent;
 }
